@@ -36,10 +36,11 @@ sw $0, 20($fp) # output 5 --- du
 addiu $a0, $fp, 4
 addiu $a1, $fp, 8
 jal input
-
+# input1
+# input2
 # output1 nhan
-#
-#
+# output2 chia
+# output3 du
 #
 #
 #
