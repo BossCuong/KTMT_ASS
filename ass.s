@@ -13,6 +13,7 @@ ketqua_du:        .asciiz "Du sau khi chia:  "
 
 main:
 
+# Chuan bi stack
 addiu $sp, $sp, -20
 addiu $fp, $sp, 0
 
