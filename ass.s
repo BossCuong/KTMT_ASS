@@ -84,10 +84,47 @@ nhan:
 
 
 
+
+jr $ra
+
+isodd:
+lw $t0,0($a0) #input 1
+andi $t3,$t0,0x01
+bgtz $t3,odd # neu $t3 le
+addi $v0, $0,0
+j out_isodd
+odd:
+addi $v0,$0,1
+out_isodd:
+
 jr $ra
 
 
+xetdau:
 
+lw $t0, 0($a0)		#input 1
+lw $t1, 0($a1)		#input 2
+lw $t2, 0($a2)		#dia chi ket qua
+lw $t3, 0($t2) 		# gia tri ket qua
+bgtz $t1, ip1_duong 	#so sanh input 1 vs 0
+j ip1_am
+ip1_duong: 		#input 1 duong
+bgtz $t1, ip2_duong 	#so sanh input 2 vs 0
+sub $t3,$0,$t3 		# input 2 am , input 1 duong
+j out_xetdau 	
+ip2_duong: 		#input 1 va 2 deu duong 
+add $t3,$0,$t3
+j out_xetdau
+ip1_am: 			# th input 1 am
+bgtz $t1,ip2d_ip1a 	#so sanh input2 vs 0
+add $t3,$0,$t3 		#input 1 va 2 deu am
+j out_xetdau
+ip2d_ip1a:		#input 2 duong, input 1 am
+sub $t3,$0,$t3
+
+out_xetdau:
+sw $t3,0($t2)
+jr $ra			#thoat khoi ham
 chia:
 
 jr $ra
