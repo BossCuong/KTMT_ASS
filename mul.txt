@@ -1,0 +1,19 @@
+
+
+IF (lhs == 0 OR rhs == 0)
+      return 0;
+
+// lhs != 0 && rhs != 0
+
+LOOP UNTIL BREAK
+      IF (lhs odd)
+            ans += rhs
+
+      IF (lhs == 1)
+            break;
+
+      lhs >>= 2
+      rhs <<= 2
+END LOOP
+
+xetdau(lhs, rhs)
