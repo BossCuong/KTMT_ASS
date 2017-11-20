@@ -265,11 +265,18 @@ beqz $t0,zero_div    #if dividend = 0
 lw   $t0,24($fp)     #check divisor
 beqz $t0,exception   #if divisor = 0 thrown exception
 
+#Absolute dividend/remainder and divisor
+lw  $t0,20($fp) 
+abs $t0,$t0
+sw  $t0,20($fp)
+sw  $t0,32($fp)
+
+lw  $t0,24($fp)
+abs $t0,$t0
 sll $t0,$t0,16 #Shift divisor to left half of register
 sw  $t0,24($fp) 
 
 addiu $t8,$0,17 #count variable
-
 div_loop:
 lw   $t0,24($fp)   #divisor
 lw   $t1,32($fp)   #remainder
@@ -293,7 +300,7 @@ srl $t0,$t0,1
 sw $t0,24($fp)
 
 addiu $t8,$t8,-1
-beqz $t8,exit_div
+beqz $t8,check_sign_bit
 
 
 j div_loop
@@ -315,7 +322,22 @@ sw $0,28($fp)
 j exit_div
 
 exception:
+##############
 j exit_div
+
+check_sign_bit:
+lw $t0,4($fp) #Dividend
+lw $t1,8($fp) #Divisor
+#if dividend or divisor < 0,set quotient = - quotient
+bltz $t0,set_quotient
+bltz $t1,set_quotient
+#else
+j exit_div
+
+set_quotient:
+lw $t0,28($fp)
+subu $t0,$0,$t0
+sw $t0,28($fp)
 
 exit_div:
 lw $v0,28($fp)
