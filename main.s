@@ -13,8 +13,8 @@ ketqua_du:        .asciiz "Du sau khi chia:  "
 main:
 
 # Chuan bi stack
-addiu $sp, $sp, -20
-addiu $fp, $sp, 20
+addiu $sp, $sp, -16
+addiu $fp, $sp, 16
 
 # khai bao 2 bien input
 sw $0, 0($fp)      # input 1 --- lhs
@@ -22,9 +22,9 @@ sw $0, -4($fp)     # input 2 --- rhs
 
 # khai bao 3 bien output
 sw $0, -8($fp)     # output 3 --- tich
-sh $0, -12($fp)    # output 4 --- thuong
-sh $0, -14($fp)    # output 5 --- du
-sh $0, -16($fp)    # hex flag
+sh $0, -10($fp)    # output 4 --- thuong
+sh $0, -12($fp)    # output 5 --- du
+sh $0, -14($fp)    # hex flag
 # waste 2 bytes
 
 # input
@@ -72,8 +72,8 @@ addiu $sp, $sp, 4
 #
 lh $a0, 0($fp)
 lh $a1, -4($fp)
-addiu $a2, $fp, -12
-addiu $a3, $fp, -14
+addiu $a2, $fp, -10
+addiu $a3, $fp, -12
 addiu $sp, $sp, -4      # save current frame pointer
 sw $fp, 4($sp) 
 jal divide
@@ -82,8 +82,7 @@ addiu $sp, $sp, 4
 
 # xuat ket qua
 
-
-addiu $sp, $sp, 20
+addiu $sp, $sp, 16
 addiu $fp, $0, 0
 # exit
 li $v0, 10
