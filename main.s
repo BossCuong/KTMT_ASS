@@ -1,11 +1,12 @@
 .data
 
-nhap_so_1:        .asciiz "Nhap so thu nhat: "
-nhap_so_2:        .asciiz "Nhap so thu hai:  "
-ketqua_nhan:      .asciiz "Tich hai so la:   "
-ketqua_chia:      .asciiz "Thuong hai so la: "
-ketqua_du:        .asciiz "Du sau khi chia:  "
-
+nhap_so_1:        .asciiz "\nNhap so thu nhat: "
+nhap_so_2:        .asciiz "\nNhap so thu hai:  "
+ketqua_nhan:      .asciiz "\nTich hai so la:   "
+ketqua_chia:      .asciiz "\nThuong hai so la: "
+ketqua_du:        .asciiz "\nDu sau khi chia:  "
+hex:              .asciiz "\nHexa :"
+dec:              .asciiz "\nDecimal :"
 
 .text
 .globl main
@@ -82,8 +83,85 @@ addiu $sp, $sp, 4
 
 # xuat ket qua
 
+# ket qua tich
+li $v0, 4
+la $a0, ketqua_nhan
+syscall
+# Decimal
+
+
+li $v0, 4
+la $a0, dec
+syscall
+
+lw $a0,-8($fp)
+li $v0,1
+syscall
+
+
+
+# Hexa
+
+li $v0, 4
+la $a0, hex
+syscall
+
+lw $a0,-8($fp)
+li $v0,34
+syscall
+
+#ket qua chia 
+li $v0,4
+la $a0, ketqua_chia
+syscall
+
+#Decimal
+li $v0, 4
+la $a0, dec
+syscall
+
+lh $a0, -10($fp)
+li $v0,1
+syscall
+
+# Hexa
+
+li $v0, 4
+la $a0, hex
+syscall
+
+lh $a0,-10($fp)
+li $v0,34
+syscall
+#ket qua du
+
+li $v0, 4
+la $a0, ketqua_du
+syscall
+
+#Decimal
+li $v0, 4
+la $a0, dec
+syscall
+
+lh $a0, -12($fp)
+li $v0, 1
+syscall
+
+# Hexa
+
+li $v0, 4
+la $a0, hex
+syscall
+
+lh $a0,-12($fp)
+li $v0,34
+syscall
+
 addiu $sp, $sp, 16
 addiu $fp, $0, 0
+
+
 # exit
 li $v0, 10
 syscall
