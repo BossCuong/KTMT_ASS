@@ -7,8 +7,6 @@
 # out      = none
 #
 input:
-addiu $sp, $sp, -8
-addiu $fp, $sp, 0
 
 # First input
 li $v0, 5
@@ -20,6 +18,4 @@ li $v0, 5
 syscall
 sw $v0, 0($a1)
 
-addiu $sp, $sp, 8
-addiu $fp, $sp, 0
 jr $ra
