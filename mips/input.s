@@ -68,14 +68,16 @@ syscall
 li $v0, 5
 syscall
 
-li $t0, 1
-beq $v0, $t0, decimal_input
+addu $t0, $v0, $0
 
-li $t0, 2
-beq $v0, $t0, heximal_input
+li $t1, 1
+beq $t0, $t1, decimal_input
 
-li $t0, 3
-beq $v0, $t0, exit
+li $t1, 2
+beq $t0, $t1, heximal_input
+
+li $t1, 3
+beq $t0, $t1, exit
 
 # if input failed prompt again
 j prompt
