@@ -3,8 +3,6 @@
 ketqua_nhan:      .asciiz "Tich hai so la  : "
 ketqua_chia:      .asciiz "Thuong hai so la: "
 ketqua_du:        .asciiz "Du sau khi chia : "
-hex:              .asciiz "Hexa            : "
-dec:              .asciiz "Decimal         : "
 
 .text
 .globl output

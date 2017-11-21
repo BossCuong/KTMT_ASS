@@ -30,9 +30,9 @@ sh $0,  -24($fp)         # quotient
 sh $t0, -26($fp)         # remainder
 
 lw   $t0, -16($fp)       # check dividend
-beqz $t0, zero_div      # if dividend = 0 go to zero_div
+beqz $t0, zero_div       # if dividend = 0 go to zero_div
 lw   $t0, -20($fp)       # check divisor
-beqz $t0, exception     # if divisor == 0 thrown exception
+beqz $t0, exception      # if divisor == 0 thrown exception
 
 #Absolute dividend/remainder and divisor
 lw  $t0, -16($fp) 
@@ -51,7 +51,7 @@ addiu $t8, $0, 17       # count variable
 div_loop:
 lw   $t0, -20($fp)       # divisor
 lw   $t1, -28($fp)       # remainder
-subu $t1, $t1, $t0      # remainder = remainder - divisor
+subu $t1, $t1, $t0       # remainder = remainder - divisor
 sw   $t1, -28($fp)       # store remainder
 
 bltz $t1, remainder_less_than_zero        # if remainder < 0
@@ -80,7 +80,7 @@ beqz $t8, check_sign_bit      # if count == 0 go to check_sign_bit
 remainder_less_than_zero:
 lw $t0, -20($fp)         # divisor
 lw $t1, -28($fp)         # remainder
-addu $t1, $t1, $t0      # remainder = remainder + divisor
+addu $t1, $t1, $t0       # remainder = remainder + divisor
 sw $t1, -28($fp)         # store remainder
 
 # shift quotient to the left
@@ -98,10 +98,11 @@ exception:
 j exit_div
 
 check_sign_bit:
-lw $t0, 0($fp)    # Dividend
+lw $t0, 0($fp)     # Dividend
 lw $t1, -4($fp)    # Divisor
 
-# if dividend or divisor < 0,set quotient = - quotient
+# if dividend or divisor < 0
+#     set quotient = - quotient
 bltz $t0, set_quotient
 bltz $t1, set_quotient
 # else
