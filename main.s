@@ -1,3 +1,7 @@
+.data
+
+tieptuc: .asciiz "Tiep tuc (0/1): "
+
 .text
 .globl main
 
@@ -15,9 +19,10 @@ sw $0, -4($fp)     # input 2 --- rhs
 sw $0, -8($fp)     # output 3 --- tich
 sh $0, -10($fp)    # output 4 --- thuong
 sh $0, -12($fp)    # output 5 --- du
-sh $0, -14($fp)    # hex flags
+sh $0, -14($fp)    # hex flag
 # waste 2 bytes
 
+loop:
 # input
 #
 # param a0  = address input 1
@@ -30,6 +35,7 @@ sh $0, -14($fp)    # hex flags
 #
 addiu $a0, $fp, 0
 addiu $a1, $fp, -4
+addiu $a2, $fp, -14
 addiu $sp, $sp, -4      # save current frame pointer
 sw $fp, 4($sp)
 jal input
@@ -88,6 +94,16 @@ sw $fp, 4($sp)
 jal output
 lw $fp, 4($sp)          # get old frame pointer
 addiu $sp, $sp, 4
+
+
+# again?
+li $v0, 4
+la $a0, tieptuc
+syscall
+
+li $v0, 5
+syscall
+bnez $v0, loop
 
 # exit
 li $v0, 10
