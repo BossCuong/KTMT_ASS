@@ -60,7 +60,7 @@ loop_mul:
 
             # shift and store
             sll $t1, $t1, 1
-            
+
             # sra $t0, $t0, 1
                   # problem
                   # -5 / 2 = -3
