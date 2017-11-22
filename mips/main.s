@@ -17,8 +17,8 @@ sw $0, -4($fp)     # input 2 --- rhs
 
 # khai bao 3 bien output
 sw $0, -8($fp)     # output 3 --- tich
-sh $0, -10($fp)    # output 4 --- thuong
-sh $0, -12($fp)    # output 5 --- du
+sh $0, -10($fp)    # output 4 --- du
+sh $0, -12($fp)    # output 5 --- thuong
 sh $0, -14($fp)    # hex flag
 # waste 2 bytes
 
@@ -53,7 +53,7 @@ lw $a0, 0($fp)
 lw $a1, -4($fp)
 addiu $a2, $fp, -8
 addiu $sp, $sp, -4      # save current frame pointer
-sw $fp, 4($sp) 
+sw $fp, 4($sp)
 jal multiply
 lw $fp, 4($sp)          # get old frame pointer
 addiu $sp, $sp, 4
@@ -69,8 +69,8 @@ addiu $sp, $sp, 4
 #
 lh $a0, 0($fp)
 lh $a1, -4($fp)
-addiu $a2, $fp, -10
-addiu $a3, $fp, -12
+addiu $a2, $fp, -12
+addiu $a3, $fp, -10
 addiu $sp, $sp, -4      # save current frame pointer
 sw $fp, 4($sp)
 jal divide
@@ -86,8 +86,8 @@ addiu $sp, $sp, 4
 # out       = none
 #
 addiu $a0, $fp, -8
-addiu $a1, $fp, -10
-addiu $a2, $fp, -12
+addiu $a1, $fp, -12
+addiu $a2, $fp, -10
 addiu $a3, $fp, -14
 addiu $sp, $sp, -4      # save current frame pointer
 sw $fp, 4($sp)
