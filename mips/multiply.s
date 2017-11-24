@@ -97,7 +97,7 @@ loop_mul_end:
       j exit_mul
 
 zero_mul:
-      sw $t0, -8($fp)         # address answer
+      lw $t0, -8($fp)         # address answer
       sw $0, 0($t0)           # store 0 in answer
 
 exit_mul:

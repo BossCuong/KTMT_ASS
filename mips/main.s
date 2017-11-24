@@ -11,6 +11,7 @@ main:
 addiu $sp, $sp, -20
 addiu $fp, $sp, 20
 
+loop:
 # khai bao 2 bien input
 sw $0, 0($fp)      # input 1 --- lhs
 sw $0, -4($fp)     # input 2 --- rhs
@@ -22,7 +23,7 @@ sh $0, -12($fp)    # output 5 --- thuong
 sh $0, -14($fp)    # hex flag
 # waste 2 bytes
 
-loop:
+
 # input
 #
 # param a0  = address input 1

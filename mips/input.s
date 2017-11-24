@@ -119,11 +119,13 @@ la $a0, nhap_so_1_hex
 syscall
 
 lw $a0, 0($fp)          # address input 1
-addiu $sp, $sp, -4      # prepare jump
-sw $ra, 4($sp)
+addiu $sp, $sp, -8      # prepare jump
+sw $ra, 8($sp)
+sw $fp, 4($sp)
 jal hex_input
-lw $ra, 4($sp)          # get old $ra
-addiu $sp, $sp, 4
+lw $fp, 4($sp)          # get old fp
+lw $ra, 8($sp)          # get old $ra
+addiu $sp, $sp, 8
 
 # Last input
 li $v0, 4
@@ -131,11 +133,13 @@ la $a0, nhap_so_2_hex
 syscall
 
 lw $a0, -4($fp)         # address input 1
-addiu $sp, $sp, -4      # prepare jump
-sw $ra, 4($sp)
+addiu $sp, $sp, -8      # prepare jump
+sw $ra, 8($sp)
+sw $fp, 4($sp)
 jal hex_input
-lw $ra, 4($sp)          # get old $ra
-addiu $sp, $sp, 4
+lw $fp, 4($sp)          # get old fp
+lw $ra, 8($sp)          # get old $ra
+addiu $sp, $sp, 8
 
 return:
 addiu $sp, $sp, 12
