@@ -1,0 +1,65 @@
+Input:
+hex : string,
+
+output:
+dec : num.
+
+procedure start:
+      ans : num = 0
+      bitset : num = 0x01
+      hex_length = length of hex - 1
+      offset : num = 0
+
+      loop untill hex_length < 0
+
+            hex_num : num
+            hex_num = get_hex_num(hex[hex_length])
+            hex_num <<= offset            // using slv
+            offset += 4
+
+            loop 4 times
+
+                  isbitset : bool = bitset & hex_num
+                  if isbitset             // != 0
+                        ans += bitset
+                  bitset <<= 1
+
+            end loop
+
+            hex_length -= 1
+
+      end loop
+
+      return ans
+procedure end
+
+input:
+hex : string
+size : num
+length of hex:
+
+      size : num = 0
+      loop until hex[size] == 0           // '0' and 0 are two different things
+            size++
+      return size + 1
+
+length of hex end
+
+
+input:
+hex : char
+dec : num
+get_hex_num:
+
+      if '0' <= hex <= '9'
+            return hex - '0'
+
+      if 'a' <= hex <= 'f'
+            return 10 + hex - 'a'
+
+      if 'A' <= hex <= 'F'
+            return 10 + hex - 'A'
+
+      exit // exception wrong input
+
+get_hex_num end

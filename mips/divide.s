@@ -35,7 +35,7 @@ lw   $t0, -20($fp)       # check divisor
 beqz $t0, exception      # if divisor == 0 thrown exception
 
 #Absolute dividend/remainder and divisor
-lw  $t0, -16($fp) 
+lw  $t0, -16($fp)
 abs $t0, $t0
 sw  $t0, -16($fp)
 sw  $t0, -28($fp)
@@ -43,7 +43,7 @@ sw  $t0, -28($fp)
 lw  $t0, -20($fp)
 abs $t0, $t0
 sll $t0, $t0, 16        # Shift divisor to left half of register
-sw  $t0, -20($fp) 
+sw  $t0, -20($fp)
 
 addiu $t8, $0, 17       # count variable
 
