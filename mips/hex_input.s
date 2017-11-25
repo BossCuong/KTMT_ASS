@@ -1,7 +1,7 @@
 .data
 
 buffer: .space 10       # 10 bytes, 10 characters
-
+                        # max 8 char + 1 \n + 1 \0
 .text
 .globl hex_input
 
@@ -73,7 +73,7 @@ loop:
             lw $t4, -4($fp)         # get ans
             
             beqz $t3, shift
-            add $t4, $t4, $t2
+            addu $t4, $t4, $t2      # add unsigned only
             sw $t4, -4($fp)
             
             shift:
@@ -105,9 +105,40 @@ jr $ra
 #
 get_hex_num:
 
-addi $a0, $a0, -48      # 48 is '0'
-add $v0, $0, $a0
+li $t0, '0'
+li $t1, '9'
+li $t2, 'A'
+li $t3, 'F'
+li $t4, 'a'
+li $t5, 'f'
 
+blt $a0, $t0, exit            # < '0'
+bgt $a0, $t5, exit            # > 'f'
+
+ble $a0, $t1, number          # <= '9'
+
+blt $a0, $t2, exit            # < 'A' and > '9' ????
+ble $a0, $t3, upper_letter    # >= 'A' and =< 'F'
+
+blt $a0, $t4, exit            # > 'F' and < 'a' ????
+ble $a0, $t5, lower_letter    # >= 'a' and <= 'f'
+
+
+lower_letter:
+subu $v0, $a0, $t4
+addu $v0, $a0, 10
+j get_hex_num_end
+
+upper_letter:
+subu $v0, $a0, $t2
+addu $v0, $a0, 10
+j get_hex_num_end
+
+hex_number:
+subu $v0, $a0, $t0
+j get_hex_num_end
+
+get_hex_num_end:
 jr $ra
 
 
