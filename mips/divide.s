@@ -114,9 +114,9 @@ subu $t0, $0, $t0
 sw $t0, -24($fp)
 
 exit_div:
-lw $v0, -24($fp)
+lh $v0, -24($fp)
 sh $v0, 0($a2)
-lw $v1, -28($fp)
+lh $v1, -26($fp)
 sh $v1, 0($a3)
 
 addiu $sp, $sp, 28
