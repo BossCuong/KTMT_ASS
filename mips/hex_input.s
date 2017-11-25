@@ -11,8 +11,8 @@ buffer: .space 10       # 10 bytes, 10 characters
 # out   *a0 = number in decimal
 #
 hex_input:
-addiu $sp, $sp, -16
-addiu $fp, $sp, 16
+addiu $sp, $sp, -20
+addiu $fp, $sp, 20
 
 
 sw $a0, 0($fp)          # param copy
@@ -20,6 +20,7 @@ sw $0, -4($fp)          # answer
 li $t0, 1
 sw $t0, -8($fp)         # bitset init
 sw $0, -12($fp)         # offset
+sw $0, -16($fp)         # hex length
 
 # input string
 la $a0, buffer
@@ -40,10 +41,11 @@ li $t0, 8
 bgt $v0, $t0, exit      # length > 8
 
 addi $v0, $v0, -1
-add $t0, $v0, $0        # copy of length to use
+sw $v0, -16($fp)
 
 # t0 is length to count down
 loop:
+      lw $t0, -16($fp)
       bltz $t0, return
 
       # get char at $t0 + buffer
@@ -84,7 +86,9 @@ loop:
       
       end_loop_4_times:
 
+      lw $t0, -16($fp)
       addi $t0, $t0, -1
+      sw $t0, -16($fp)
       j loop
 
 return:
@@ -93,7 +97,7 @@ lw $t0, -4($fp)         # get ans
 lw $t1, 0($fp)          # get return address
 sw $t0, 0($t1)          # store back
 
-addiu $sp, $sp, 16
+addiu $sp, $sp, 20
 addiu $fp, $0, 0
 jr $ra
 
