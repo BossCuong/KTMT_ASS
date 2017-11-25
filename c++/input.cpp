@@ -8,7 +8,8 @@ void input(int& lhs, int& rhs, bool& hexflag) {
             std::cout << "Chon cach nhap  : " << std::endl;
 
             int choice = 0;
-
+            std::cin >> choice;
+            
             if (choice == 1) {
                   std::cout << "Nhap so thu nhat: " << std::endl;
                   std::cin >> lhs;
