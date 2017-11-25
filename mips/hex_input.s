@@ -73,17 +73,17 @@ loop:
             lw $t2, -8($fp)         # load bitset
             and $t3, $t2, $v0       # get status
             lw $t4, -4($fp)         # get ans
-            
+
             beqz $t3, shift
             addu $t4, $t4, $t2      # add unsigned only
             sw $t4, -4($fp)
-            
+
             shift:
                   sll $t2, $t2, 1
                   sw $t2, -8($fp)
 
             j loop_4_times
-      
+
       end_loop_4_times:
 
       lw $t0, -16($fp)
@@ -130,15 +130,15 @@ ble $a0, $t5, lower_letter    # >= 'a' and <= 'f'
 
 lower_letter:
 subu $v0, $a0, $t4
-addu $v0, $a0, 10
+addu $v0, $v0, 10
 j get_hex_num_end
 
 upper_letter:
 subu $v0, $a0, $t2
-addu $v0, $a0, 10
+addu $v0, $v0, 10
 j get_hex_num_end
 
-hex_number:
+number:
 subu $v0, $a0, $t0
 j get_hex_num_end
 
