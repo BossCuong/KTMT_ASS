@@ -38,7 +38,7 @@ beqz $t0, exception      # if divisor == 0 thrown exception
 lw  $t0, -16($fp)
 abs $t0, $t0
 sw  $t0, -16($fp)
-sw  $t0, -28($fp)
+sh  $t0, -26($fp)
 
 lw  $t0, -20($fp)
 abs $t0, $t0
@@ -50,19 +50,19 @@ addiu $t8, $0, 17       # count variable
 
 div_loop:
 lw   $t0, -20($fp)       # divisor
-lw   $t1, -28($fp)       # remainder
+lh   $t1, -26($fp)       # remainder
 subu $t1, $t1, $t0       # remainder = remainder - divisor
-sw   $t1, -28($fp)       # store remainder
+sh   $t1, -26($fp)       # store remainder
 
 bltz $t1, remainder_less_than_zero        # if remainder < 0
                                           # go to remainder_less_than_zero
 
     # shift quotient to the left
-    lw $t0, -24($fp)
+    lh $t0, -24($fp)
     # set rightmost bit to 1
     sll $t0, $t0, 1
     addiu $t0, $t0, 1
-    sw $t0, -24($fp)
+    sh $t0, -24($fp)
 
 
 set_for_next_loop:
@@ -79,9 +79,9 @@ beqz $t8, check_sign_bit      # if count == 0 go to check_sign_bit
 
 remainder_less_than_zero:
 lw $t0, -20($fp)         # divisor
-lw $t1, -28($fp)         # remainder
+lh $t1, -26($fp)         # remainder
 addu $t1, $t1, $t0       # remainder = remainder + divisor
-sw $t1, -28($fp)         # store remainder
+sh $t1, -26($fp)         # store remainder
 
 # shift quotient to the left
 lw $t0, -24($fp)
