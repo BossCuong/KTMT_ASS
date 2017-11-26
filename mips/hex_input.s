@@ -65,26 +65,9 @@ loop:
       addiu $t1, $t1, 4       # add 4
       sw $t1, -12($fp)        # store it back
 
-      li $t1, 4               # load counter
-      loop_4_times:
-            beqz $t1, end_loop_4_times
-            addi $t1, $t1, -1
-
-            lw $t2, -8($fp)         # load bitset
-            and $t3, $t2, $v0       # get status
-            lw $t4, -4($fp)         # get ans
-
-            beqz $t3, shift
-            addu $t4, $t4, $t2      # add unsigned only
-            sw $t4, -4($fp)
-
-            shift:
-                  sll $t2, $t2, 1
-                  sw $t2, -8($fp)
-
-            j loop_4_times
-
-      end_loop_4_times:
+      lw $t2, -4($fp)         # get ans
+      addu $t2, $t2, $v0      # add unsigned only
+      sw $t2, -4($fp)
 
       lw $t0, -16($fp)
       addi $t0, $t0, -1
