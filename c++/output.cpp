@@ -1,6 +1,6 @@
 #include <iostream>
 
-void output(int& tich, short& quotient, short& remainer, bool& hexflag) {
+void output(int& tich, short& quotient, int& remainer, bool& hexflag) {
       if (!hexflag) {
             std::cout << "Tich hai so la  : " << tich << std::endl;
             std::cout << "Thuong hai so la: " << quotient << std::endl;

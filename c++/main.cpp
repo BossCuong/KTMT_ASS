@@ -2,24 +2,24 @@
 
 void input(int&, int&, bool&);
 void multiply(int, int, int&);
-void divide(int&, int&, short&, short&);
-void output(int&, short&, short&, bool&);
+void divide(int, int, short&, int&);
+void output(int&, short&, int&, bool&);
 
 int main(int argc, char** argv) {
       int lhs        = 0;
       int rhs        = 0;
       int tich       = 0;
       short quotient = 0;
-      short remainer = 0;
+      int remainder  = 0;
       bool hexflag   = 0;
 
       input(lhs, rhs, hexflag);
 
       multiply(lhs, rhs, tich);
 
-      divide(lhs, rhs, quotient, remainer);
+      divide(lhs, rhs, quotient, remainder);
 
-      output(tich, quotient, remainer, hexflag);
+      output(tich, quotient, remainder, hexflag);
 
       return 0;
 }
