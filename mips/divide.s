@@ -84,34 +84,54 @@ addu $t1, $t1, $t0       # remainder = remainder + divisor
 sh $t1, -26($fp)         # store remainder
 
 # shift quotient to the left
-lw $t0, -24($fp)
+lh $t0, -24($fp)
 sll $t0, $t0, 1
-sw $t0, -24($fp)
+sh $t0, -24($fp)
 j set_for_next_loop
 
 zero_div:
-sw $0, -24($fp)    # set quotient = 0
+sh $0, -24($fp)    # set quotient = 0
 j exit_div
 
 exception:
-##############
+sh $0, -24($fp)
+sh $0, -26($fp)
 j exit_div
 
 check_sign_bit:
 lw $t0, 0($fp)     # Dividend
-lw $t1, -4($fp)    # Divisor
+lw $t1,-4($fp)     # Divisor
 
 # if dividend or divisor < 0
-#     set quotient = - quotient
-bltz $t0, set_quotient
-bltz $t1, set_quotient
+# set quotient = - quotient
+bltz $t0, set_resuilt  #ìf dividend < 0
+bltz $t1, set_quotient #if dividend > 0 and divisor < 0
 # else
 j exit_div
 
-set_quotient:
-lw $t0, -24($fp)
+set_resuilt:
+bltz $t1,set_remainder #ìf dividend < 0 and divisor < 0
+#else #ìf dividend < 0 and divisor > 0
+lh $t0, -24($fp)
 subu $t0, $0, $t0
-sw $t0, -24($fp)
+sh $t0, -24($fp)
+
+lh $t0, -26($fp)
+subu $t0, $0, $t0
+sh $t0, -26($fp)
+j exit_div
+
+set_quotient:
+lh $t0, -24($fp)
+subu $t0, $0, $t0
+sh $t0, -24($fp)
+j exit_div
+
+set_remainder:
+lh $t0, -26($fp)
+subu $t0, $0, $t0
+sh $t0, -26($fp)
+j exit_div
 
 exit_div:
 lh $v0, -24($fp)
