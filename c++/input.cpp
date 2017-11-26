@@ -17,15 +17,18 @@ void input(int& lhs, int& rhs, bool& hexflag) {
                   return;
             }
             else if (choice == 2) {
+
                   hexflag = true;
                   std::cout << "Nhap so thu nhat: 0x" << std::endl;
                   std::cin >> std::hex >> lhs;
                   std::cout << "Nhap so thu hai : 0x" << std::endl;
                   std::cin >> std::hex >> rhs;
                   return;
+
             }
             else if (choice == 3) {
                   exit(0);
+
             }
             // meo xoa man hinh duoc
       }
